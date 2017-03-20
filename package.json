@@ -1,0 +1,60 @@
+{
+  "name": "open-in-editor-connect",
+  "version": "0.9.0",
+  "description": "Open in editor middleware",
+  "keywords": [
+    "editor",
+    "edit",
+    "open",
+    "file",
+    "atom",
+    "code",
+    "emacs",
+    "idea",
+    "phpstorm",
+    "sublime",
+    "vim",
+    "visual studio",
+    "vscode",
+    "webstorm"
+  ],
+  "license": "MIT",
+  "author": "Evgeniy V. Generalov <e.generalov@gmail.com>",
+  "files": [
+    "LICENSE",
+    "lib",
+    "index.js"
+  ],
+  "main": "index.js",
+  "repository": "generalov/open-in-editor-connect",
+  "scripts": {
+    "fix": "eslint --fix --ext js .",
+    "lint": "eslint --ext js .",
+    "test": "npm run lint && mocha --reporter spec --bail --check-leaks test",
+    "test-watch": "mocha -w --reporter spec --bail --check-leaks test"
+  },
+  "dependencies": {
+    "@generalov/open-in-editor": "^2.3.0"
+  },
+  "peerDependencies": {
+    "serve-static": "^1.12.2"
+  },
+  "devDependencies": {
+    "eslint": "3.19.0",
+    "eslint-config-semistandard": "11.0.0",
+    "eslint-config-standard": "10.2.1",
+    "eslint-mocha": "0.2.2",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-mocha": "4.9.0",
+    "eslint-plugin-node": "4.2.2",
+    "eslint-plugin-promise": "3.5.0",
+    "eslint-plugin-standard": "3.0.1",
+    "mocha": "3.3.0",
+    "mock-fs": "4.3.0",
+    "sinon": "2.2.0",
+    "supertest": "3.0.0"
+  },
+  "engines": {
+    "node": ">= 0.12.0"
+  }
+}
