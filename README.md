@@ -16,32 +16,35 @@ This is a Node.js module available through the npm registry. Installation is don
 $ npm install open-in-editor-connect
 ```
 
+There are some examples the below how to use `open-in-editor-connect` middleware for a web server.
 
 ## Usage
 
 Append line number to the URL in the location bar of a browser and a file will be opened in the editor.
 
+![open-in-editor-connect](images/open-in-editor-connect.gif)
+
 ### Examples
 
-`curl -i "http://localhost:3000/app/router.js:123"`
+`curl -i "http://localhost:3000/server.js:123"`
 
 Open the `/app/router.js` file in default editor and put a cursor to line 123:
 
-`curl -i "http://localhost:3000/app/router.js:123?edit=sublime"`
+`curl -i "http://localhost:3000/server.js:123?edit=sublime"`
 
 Open the `/app/router.js` file in Sublime Editor and put a cursor to line 123:
 
 ## URLs
 
-* `http://host/index.js:{line}`
-* `http://host/index.js:{line}:{column}`
+* `http://host/path:{line}`
+* `http://host/path:{line}:{column}`
 
 ### Query Parameters
 
 #### edit
 
-* `http://host/index.js?edit`
-* `http://host/index.js?edit={editor}`
+* `http://host/path?edit`
+* `http://host/path?edit={editor}`
 
 
 ## API
@@ -80,11 +83,9 @@ Set this to `true` to wrap the [serve-static] middleware. Default is `false`.
 
 #### editor
 
-An object with an editor parameters.
+Object with options for an editor.
 
-##### name
-
-An object string name of an editor.
+**`name`**: An object string name of an editor.
 
 Supported names are:
 
@@ -102,17 +103,11 @@ Supported names are:
 
 Use these setting if the editor currently is not supported or if the editor's path can't be detected automatically.
 
-##### binary
+**`binary`**: A string path to the editor binary
 
-A string path to the editor binary
+**`args`**: A string of command line arguments which will be passed to the `binary`. The `args` can contain placeholders to be replaced by actual values. Supported placeholders: `{filename}`, `{line}` and `{column}`
 
-##### args
-
-A string of command line arguments which will be passed to the `binary`. The `args` can contain placeholders to be replaced by actual values. Supported placeholders: `{filename}`, `{line}` and `{column}`
-
-##### terminal
-
-Set this to `true` if the editor should be opened in a terminal. Mac OS and Linux are supported.
+**`terminal`**: Set this to `true` if the editor should be opened in a terminal. Mac OS and Linux are supported.
 
 ## Examples
 
@@ -121,12 +116,12 @@ Set this to `true` if the editor should be opened in a terminal. Mac OS and Linu
 var connect = require('connect');
 var serveStatic = require('serve-static');
 var openInEditor = require('open-in-editor-connect', {
-  editor: {name: 'code'}
+  editor: { name: 'code' }
 });
 
 var app = connect();
-app.use(serveStatic('.', {index: ['index.html']}));
 app.use(openInEditor('.'));
+app.use(serveStatic('.', { index: ['index.html'] }));
 app.listen(3000);
 ```
 
@@ -135,12 +130,12 @@ app.listen(3000);
 var connect = require('connect');
 //var serveStatic = require('serve-static');
 var serveStatic = require('open-in-editor-connect', {
-  editor: {name: 'code'},
+  editor: { name: 'code' },
   serveStatic: true
 });
 
 var app = connect();
-app.use(serveStatic('.', {index: ['index.html']}));
+app.use(serveStatic('.'));
 app.listen(3000);
 ```
 
