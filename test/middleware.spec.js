@@ -39,7 +39,8 @@ describe('open-in-editor-connect', function () {
     this.mockFs({'/index.js': 'hello'});
 
     return request(middleware).get('/index.js:1')
-      .expect(200)
+      .expect(200, '{"status":"ok"}')
+      .expect('Content-Type', 'application/json')
       .expect(function () {
         sinon.assert.calledOnce(open);
         sinon.assert.calledWith(open, '/index.js:1');
@@ -89,7 +90,8 @@ describe('open-in-editor-connect', function () {
     this.mockFs({'/index.js': 'hello'});
 
     return request(middleware).get('/index.js:1')
-      .expect(500)
+      .expect(500, '{"status":"error","message":"Error: xx"}')
+      .expect('Content-Type', 'application/json')
       .expect(function () {
         sinon.assert.calledOnce(open);
         sinon.assert.calledWith(open, '/index.js:1');
@@ -125,7 +127,7 @@ describe('open-in-editor-connect', function () {
   describe('url params', function () {
     it('should select editor with query param', function () {
       var open = this.fakeOpenSuccess();
-      var middleware = openInEditor('/', { editor: { name: 'vim' } });
+      var middleware = openInEditor('/', { editor: { name: 'vim', binary: '/usr/bin/vim' } });
       this.mockFs({'/index.js': 'hello'});
 
       return request(middleware).get('/index.js?edit=emacs')
@@ -171,8 +173,7 @@ describe('open-in-editor-connect', function () {
       this.mockFs({'/index.js': 'hello'});
 
       return request(middleware).get('/index.js:1')
-        .expect('Content-Type', 'application/json')
-        .expect(200, '{"status":"ok"}')
+        .expect(200)
         .expect(function () {
           sinon.assert.calledOnce(open);
           sinon.assert.calledWith(open, '/index.js:1', { editor: 'vim' });
@@ -186,8 +187,7 @@ describe('open-in-editor-connect', function () {
       this.mockFs({'/index.js': 'hello'});
 
       return request(middleware).get('/index.js:1')
-        .expect('Content-Type', 'application/json')
-        .expect(200, '{"status":"ok"}')
+        .expect(200)
         .expect(function () {
           sinon.assert.calledOnce(open);
           sinon.assert.calledWith(open, '/index.js:1', { editor: 'emacs' });
