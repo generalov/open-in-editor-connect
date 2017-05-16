@@ -85,7 +85,7 @@ Set this to `true` to wrap the [serve-static] middleware. Default is `false`.
 
 Object with options for an editor.
 
-**`name`**: An object string name of an editor.
+**`name`**: An string name of an editor.
 
 Supported names are:
 
@@ -121,7 +121,7 @@ var openInEditor = require('open-in-editor-connect', {
 
 var app = connect();
 app.use(openInEditor('.'));
-app.use(serveStatic('.', { index: ['index.html'] }));
+app.use(serveStatic('.'));
 app.listen(3000);
 ```
 
@@ -135,7 +135,7 @@ var serveStatic = require('open-in-editor-connect', {
 });
 
 var app = connect();
-app.use(serveStatic('.'));
+app.use(serveStatic('.', { index: ['index.html'] }));
 app.listen(3000);
 ```
 
