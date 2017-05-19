@@ -2,6 +2,20 @@
 
 Connect/Express extension to open a local file in an editor by URL. It could be useful addon for a local development server.
 
+Editor support:
+
+-   [Atom Editor](https://atom.io/)
+-   [Emacs](https://www.gnu.org/software/emacs/)
+-   [IDEA 14 Community Edition](https://www.jetbrains.com/idea/download/)
+-   [Sublime Text](http://www.sublimetext.com/)
+-   [PhpStorm](https://www.jetbrains.com/phpstorm/)
+-   [Vim](http://www.vim.org/)
+-   [Visual Studio](https://www.visualstudio.com/)
+-   [Visual Studio Code](https://code.visualstudio.com/)
+-   [WebStorm](https://www.jetbrains.com/webstorm/)
+
+You also can use any other editor that is able to open files from command line.
+
 ## Features
 
 * Quickly open a local file in an editor from the browser. Just append line number to the URL.
