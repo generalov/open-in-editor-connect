@@ -5,8 +5,8 @@ Connect/Express extension to open a local file in an editor by URL. It could be 
 ## Features
 
 * Quickly open a local file in an editor from the browser. Just append line number to the URL.
-* Easy to use with [open-in-editor-extension] for Google Chrome
-* `X-SourcePath` HTTP header with a file path on a file system.
+* Easy to use with [open-in-editor-extension] for Google Chrome.
+* `X-SourcePath` HTTP header with a local path on a file system.
 * Built-in adapter for the [serve-static] middleware.
 * Configurable editors
 
@@ -17,7 +17,7 @@ This is a Node.js module available through the npm registry. Installation is don
 $ npm install open-in-editor-connect
 ```
 
-There are some examples the below how to use `open-in-editor-connect` middleware for a web server.
+Then add the middleware to your server. There are some examples the below how to use `open-in-editor-connect` middleware for a web server.
 
 ## Usage
 
@@ -29,11 +29,11 @@ Append line number to the URL in the location bar of a browser and a file will b
 
 `curl -X POST -i "http://localhost:3000/server.js:123"`
 
-Open the `/app/router.js` file in default editor and put a cursor to line 123:
+Open the `server.js` file in default editor and put a cursor to line 123.
 
 `curl -X POST -i "http://localhost:3000/server.js:123?edit=sublime"`
 
-Open the `/app/router.js` file in Sublime Editor and put a cursor to line 123:
+Open the `server.js` file in Sublime Editor and put a cursor to line 123.
 
 ## URLs
 
