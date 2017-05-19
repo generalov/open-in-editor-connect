@@ -4,9 +4,10 @@ Connect/Express extension to open a local file in an editor by URL. It could be 
 
 ## Features
 
-* Quickly open a local file in an editor. Just append line number to the URL.
-* Built-in adapter for the [serve-static] middleware.
+* Quickly open a local file in an editor from the browser. Just append line number to the URL.
+* Easy to use with [open-in-editor-extension] for Google Chrome
 * `X-SourcePath` HTTP header with a file path on a file system.
+* Built-in adapter for the [serve-static] middleware.
 * Configurable editors
 
 ## Installation
@@ -160,11 +161,11 @@ app.use(openInEditor('/', { editor: { name: 'code' } }));
 
 ## For more information
 
--   Easy to use with [google-chrome-extension]
+-   Easy to use with [open-in-editor-extension] for Google Chrome
 -   Powered by [open-in-editor]
 
 **Enjoy!**
 
 [serve-static]: https://www.npmjs.com/package/serve-static
 [open-in-editor]: https://github.com/lahmatiy/open-in-editor
-[google-chrome-extension]: https://github.com/generalov/open-in-editor-extension
+[open-in-editor-extension]: https://chrome.google.com/webstore/detail/open-in-editor/fmgbklepjbpnmgplnabblaehammnbmgg
