@@ -26,8 +26,7 @@ describe('serve-static-adapter', function () {
     var serveStatic = openInEditor({ serveStatic: true });
     this.mockFs({'/root/index.js': 'hello'});
 
-    return request(serveStatic('/root'))
-      .get('/index.js')
+    return request(serveStatic('/root')).get('/index.js')
       .expect(200, 'hello')
       .expect(function () {
         sinon.assert.notCalled(open);
@@ -39,8 +38,7 @@ describe('serve-static-adapter', function () {
     var serveStatic = openInEditor({ serveStatic: true });
     this.mockFs({'/root/index.js': 'hello'});
 
-    return request(serveStatic('/root'))
-      .get('/index.js:1')
+    return request(serveStatic('/root')).post('/index.js:1')
       .expect(200, '{"status":"ok"}')
       .expect(function () {
         sinon.assert.calledOnce(open);
@@ -53,8 +51,7 @@ describe('serve-static-adapter', function () {
     var serveStatic = openInEditor({ serveStatic: true, editor: { name: 'vim' } });
     this.mockFs({'/root/index.js': 'hello'});
 
-    return request(serveStatic('/root'))
-      .get('/index.js:1')
+    return request(serveStatic('/root')).post('/index.js:1')
       .expect(200, '{"status":"ok"}')
       .expect(function () {
         sinon.assert.calledOnce(open);
@@ -67,8 +64,7 @@ describe('serve-static-adapter', function () {
     var serveStatic = openInEditor({ serveStatic: true });
     this.mockFs({'/root/index.js': 'hello'});
 
-    return request(serveStatic('/root'))
-      .get('/index.js?edit')
+    return request(serveStatic('/root')).post('/index.js?edit')
       .expect(200, '{"status":"ok"}')
       .expect(function () {
         sinon.assert.calledOnce(open);
@@ -80,8 +76,7 @@ describe('serve-static-adapter', function () {
     var serveStatic = openInEditor({ serveStatic: true });
     this.mockFs({'/root/index.js': 'hello'});
 
-    return request(serveStatic('/root'))
-      .get('/index.js')
+    return request(serveStatic('/root')).get('/index.js')
       .expect(200)
       .expect('X-SourcePath', '/root/index.js');
   });

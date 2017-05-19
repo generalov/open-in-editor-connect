@@ -26,11 +26,11 @@ Append line number to the URL in the location bar of a browser and a file will b
 
 ### Examples
 
-`curl -i "http://localhost:3000/server.js:123"`
+`curl -X POST -i "http://localhost:3000/server.js:123"`
 
 Open the `/app/router.js` file in default editor and put a cursor to line 123:
 
-`curl -i "http://localhost:3000/server.js:123?edit=sublime"`
+`curl -X POST -i "http://localhost:3000/server.js:123?edit=sublime"`
 
 Open the `/app/router.js` file in Sublime Editor and put a cursor to line 123:
 

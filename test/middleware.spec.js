@@ -38,7 +38,7 @@ describe('open-in-editor-connect', function () {
     var middleware = openInEditor('/');
     this.mockFs({'/index.js': 'hello'});
 
-    return request(middleware).get('/index.js:1')
+    return request(middleware).post('/index.js:1')
       .expect(200, '{"status":"ok"}')
       .expect('Content-Type', 'application/json')
       .expect(function () {
@@ -52,7 +52,7 @@ describe('open-in-editor-connect', function () {
     var middleware = openInEditor('/');
     this.mockFs({'/index.js': 'hello'});
 
-    return request(middleware).get('/index.js:1:1')
+    return request(middleware).post('/index.js:1:1')
       .expect(200)
       .expect(function () {
         sinon.assert.calledOnce(open);
@@ -65,7 +65,7 @@ describe('open-in-editor-connect', function () {
     var middleware = openInEditor('/');
     this.mockFs({'/xx': ''});
 
-    return request(middleware).get('/index.js')
+    return request(middleware).post('/index.js')
       .expect(404, 'next()')
       .expect(function () {
         sinon.assert.notCalled(open);
@@ -77,7 +77,7 @@ describe('open-in-editor-connect', function () {
     var middleware = openInEditor('/');
     this.mockFs({'/xx': ''});
 
-    return request(middleware).get('/index.js')
+    return request(middleware).post('/index.js')
       .expect(404, 'next()')
       .expect(function () {
         sinon.assert.notCalled(open);
@@ -89,7 +89,7 @@ describe('open-in-editor-connect', function () {
     var middleware = openInEditor('/');
     this.mockFs({'/index.js': 'hello'});
 
-    return request(middleware).get('/index.js:1')
+    return request(middleware).post('/index.js:1')
       .expect(500, '{"status":"error","message":"Error: xx"}')
       .expect('Content-Type', 'application/json')
       .expect(function () {
@@ -103,7 +103,7 @@ describe('open-in-editor-connect', function () {
     var middleware = openInEditor('/root');
     this.mockFs({'/root/index.js': 'hello'});
 
-    return request(middleware).get('/index.js:1')
+    return request(middleware).post('/index.js:1')
       .expect(200)
       .expect(function () {
         sinon.assert.calledOnce(open);
@@ -116,7 +116,7 @@ describe('open-in-editor-connect', function () {
     var middleware = openInEditor('/', { editor: { name: 'vim' } });
     this.mockFs({'/index.js': 'hello'});
 
-    return request(middleware).get('/index.js:1')
+    return request(middleware).post('/index.js:1')
       .expect(200)
       .expect(function () {
         sinon.assert.calledOnce(open);
@@ -130,7 +130,7 @@ describe('open-in-editor-connect', function () {
       var middleware = openInEditor('/', { editor: { name: 'vim', binary: '/usr/bin/vim' } });
       this.mockFs({'/index.js': 'hello'});
 
-      return request(middleware).get('/index.js?edit=emacs')
+      return request(middleware).post('/index.js?edit=emacs')
         .expect(200)
         .expect(function () {
           sinon.assert.calledOnce(open);
@@ -143,7 +143,7 @@ describe('open-in-editor-connect', function () {
       var middleware = openInEditor('/', { editor: { name: 'vim' } });
       this.mockFs({'/index.js': 'hello'});
 
-      return request(middleware).get('/index.js?edit')
+      return request(middleware).post('/index.js?edit')
         .expect(200)
         .expect(function () {
           sinon.assert.calledOnce(open);
@@ -156,7 +156,7 @@ describe('open-in-editor-connect', function () {
       var middleware = openInEditor('/');
       this.mockFs({'/index.js': 'hello'});
 
-      return request(middleware).get('/index.js:1?a=1&b=&c')
+      return request(middleware).post('/index.js:1?a=1&b=&c')
         .expect(200)
         .expect(function () {
           sinon.assert.calledOnce(open);
@@ -172,7 +172,7 @@ describe('open-in-editor-connect', function () {
       var middleware = factory('/');
       this.mockFs({'/index.js': 'hello'});
 
-      return request(middleware).get('/index.js:1')
+      return request(middleware).post('/index.js:1')
         .expect(200)
         .expect(function () {
           sinon.assert.calledOnce(open);
@@ -186,11 +186,26 @@ describe('open-in-editor-connect', function () {
       var middleware = factory('/', { editor: { name: 'emacs' } });
       this.mockFs({'/index.js': 'hello'});
 
-      return request(middleware).get('/index.js:1')
+      return request(middleware).post('/index.js:1')
         .expect(200)
         .expect(function () {
           sinon.assert.calledOnce(open);
           sinon.assert.calledWith(open, '/index.js:1', { editor: 'emacs' });
+        });
+    });
+  });
+
+  describe('UI', function () {
+    it('should respond with HTML', function () {
+      var open = this.fakeOpenSuccess();
+      var middleware = openInEditor('/');
+      this.mockFs({'/index.js': 'hello'});
+
+      return request(middleware).get('/index.js:1')
+        .expect(200)
+        .expect('Content-Type', 'text/html')
+        .expect(function () {
+          sinon.assert.notCalled(open);
         });
     });
   });
