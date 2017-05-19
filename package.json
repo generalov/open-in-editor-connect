@@ -36,9 +36,6 @@
   "dependencies": {
     "@generalov/open-in-editor": "^2.3.0"
   },
-  "peerDependencies": {
-    "serve-static": "^1.12.2"
-  },
   "devDependencies": {
     "eslint": "3.19.0",
     "eslint-config-semistandard": "11.0.0",

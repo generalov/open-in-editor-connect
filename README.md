@@ -6,7 +6,7 @@ Connect/Express extension to open a local file in an editor by URL. It could be 
 
 * Quickly open a local file in an editor. Just append line number to the URL.
 * Built-in adapter for the [serve-static] middleware.
-* `X-SourcePath` HTTP header with a source file path on a file system.
+* `X-SourcePath` HTTP header with a file path on a file system.
 * Configurable editors
 
 ## Installation
@@ -79,7 +79,14 @@ String name of query param. Default is `edit`.
 
 #### serveStatic
 
-Set this to `true` to wrap the [serve-static] middleware. Default is `false`.
+Set this to `true` to return a wrapped version of for the `serve-static` middleware.
+The main proporse of the wrapping is an ability to open in an editor the same files as they served.
+Also the wrapper adds `X-SourcePath` HTTP header to the served files response.
+Default is `false`.
+
+The [serve-static] isn't a dependency of open-in-editor-connect.
+The `dependencies` section of your application's package.json file must contain the `serve-static` module
+in order to use the wrapper.
 
 #### editor
 
