@@ -48,6 +48,7 @@
     "eslint-plugin-standard": "3.0.1",
     "mocha": "3.3.0",
     "mock-fs": "4.3.0",
+    "serve-static": "1.12.3",
     "sinon": "2.2.0",
     "supertest": "3.0.0"
   },
