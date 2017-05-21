@@ -1,7 +1,10 @@
+// @ts-check
 var assert = require('assert');
 var mockFs = require('mock-fs');
-var request = require('./request');
 var sinon = require('sinon');
+
+var request = require('./lib/request');
+var matchPath = require('./lib/match-local-path');
 
 var openInEditor = require('..');
 var util = require('../lib/util');
@@ -26,7 +29,7 @@ describe('open-in-editor-connect', function () {
   });
 
   it('should require root path', function () {
-    assert.throws(openInEditor.bind(), /root path required/);
+    assert.throws(openInEditor.bind(null), /root path required/);
   });
 
   it('should require root path to be string', function () {
@@ -43,7 +46,7 @@ describe('open-in-editor-connect', function () {
       .expect('Content-Type', 'application/json')
       .expect(function () {
         sinon.assert.calledOnce(open);
-        sinon.assert.calledWith(open, '/index.js:1');
+        sinon.assert.calledWith(open, matchPath('/index.js:1'));
       });
   });
 
@@ -56,7 +59,7 @@ describe('open-in-editor-connect', function () {
       .expect(200)
       .expect(function () {
         sinon.assert.calledOnce(open);
-        sinon.assert.calledWith(open, '/index.js:1:1');
+        sinon.assert.calledWith(open, matchPath('/index.js:1:1'));
       });
   });
 
@@ -94,7 +97,7 @@ describe('open-in-editor-connect', function () {
       .expect('Content-Type', 'application/json')
       .expect(function () {
         sinon.assert.calledOnce(open);
-        sinon.assert.calledWith(open, '/index.js:1');
+        sinon.assert.calledWith(open, matchPath('/index.js:1'));
       });
   });
 
@@ -107,7 +110,7 @@ describe('open-in-editor-connect', function () {
       .expect(200)
       .expect(function () {
         sinon.assert.calledOnce(open);
-        sinon.assert.calledWith(open, '/root/index.js:1');
+        sinon.assert.calledWith(open, matchPath('/root/index.js:1'));
       });
   });
 
@@ -120,7 +123,7 @@ describe('open-in-editor-connect', function () {
       .expect(200)
       .expect(function () {
         sinon.assert.calledOnce(open);
-        sinon.assert.calledWith(open, '/index.js:1', { editor: 'vim' });
+        sinon.assert.calledWith(open, matchPath('/index.js:1'), { editor: 'vim' });
       });
   });
 
@@ -134,7 +137,7 @@ describe('open-in-editor-connect', function () {
         .expect(200)
         .expect(function () {
           sinon.assert.calledOnce(open);
-          sinon.assert.calledWith(open, '/index.js', { editor: 'emacs' });
+          sinon.assert.calledWith(open, matchPath('/index.js'), { editor: 'emacs' });
         });
     });
 
@@ -147,7 +150,7 @@ describe('open-in-editor-connect', function () {
         .expect(200)
         .expect(function () {
           sinon.assert.calledOnce(open);
-          sinon.assert.calledWith(open, '/index.js', { editor: 'vim' });
+          sinon.assert.calledWith(open, matchPath('/index.js'), { editor: 'vim' });
         });
     });
 
@@ -160,7 +163,7 @@ describe('open-in-editor-connect', function () {
         .expect(200)
         .expect(function () {
           sinon.assert.calledOnce(open);
-          sinon.assert.calledWith(open, '/index.js:1');
+          sinon.assert.calledWith(open, matchPath('/index.js:1'));
         });
     });
   });
@@ -176,7 +179,7 @@ describe('open-in-editor-connect', function () {
         .expect(200)
         .expect(function () {
           sinon.assert.calledOnce(open);
-          sinon.assert.calledWith(open, '/index.js:1', { editor: 'vim' });
+          sinon.assert.calledWith(open, matchPath('/index.js:1'), { editor: 'vim' });
         });
     });
 
@@ -190,7 +193,7 @@ describe('open-in-editor-connect', function () {
         .expect(200)
         .expect(function () {
           sinon.assert.calledOnce(open);
-          sinon.assert.calledWith(open, '/index.js:1', { editor: 'emacs' });
+          sinon.assert.calledWith(open, matchPath('/index.js:1'), { editor: 'emacs' });
         });
     });
   });

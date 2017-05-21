@@ -1,3 +1,4 @@
+// @ts-check
 var http = require('http');
 var supertest = require('supertest');
 
