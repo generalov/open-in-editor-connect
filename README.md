@@ -2,6 +2,7 @@
 
 [![NPM Version][npm-image]][npm-url]
 [![Linux Build][travis-image]][travis-url]
+[![Windows Build][appveyor-image]][appveyor-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 
@@ -182,6 +183,8 @@ Use these setting if the editor currently is not supported or if the editor's pa
 [open-in-editor-extension]: https://chrome.google.com/webstore/detail/open-in-editor/fmgbklepjbpnmgplnabblaehammnbmgg
 [npm-image]: https://img.shields.io/npm/v/open-in-editor-connect.svg
 [npm-url]: https://npmjs.org/package/open-in-editor-connect
+[appveyor-image]: https://img.shields.io/appveyor/ci/generalov/open-in-editor-connect/master.svg?label=windows
+[appveyor-url]: https://ci.appveyor.com/project/generalov/open-in-editor-connect
 [travis-image]: https://travis-ci.org/generalov/open-in-editor-connect.svg?label=Linux
 [travis-url]: https://travis-ci.org/generalov/open-in-editor-connect
 [coveralls-image]: https://coveralls.io/repos/github/generalov/open-in-editor-connect/badge.svg?
