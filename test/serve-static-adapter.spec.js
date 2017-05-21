@@ -1,6 +1,10 @@
+// @ts-check
 var mockFs = require('mock-fs');
-var request = require('./request');
 var sinon = require('sinon');
+
+var createAbsolutePathRegExp = require('./lib/create-absolute-path-regexp');
+var request = require('./lib/request');
+var matchLocalPath = require('./lib/match-local-path');
 
 var openInEditor = require('..');
 var util = require('../lib/util');
@@ -42,7 +46,7 @@ describe('serve-static-adapter', function () {
       .expect(200, '{"status":"ok"}')
       .expect(function () {
         sinon.assert.calledOnce(open);
-        sinon.assert.calledWith(open, '/root/index.js:1');
+        sinon.assert.calledWith(open, matchLocalPath('/root/index.js:1'));
       });
   });
 
@@ -55,7 +59,7 @@ describe('serve-static-adapter', function () {
       .expect(200, '{"status":"ok"}')
       .expect(function () {
         sinon.assert.calledOnce(open);
-        sinon.assert.calledWith(open, '/root/index.js:1', { editor: 'vim' });
+        sinon.assert.calledWith(open, matchLocalPath('/root/index.js:1'), { editor: 'vim' });
       });
   });
 
@@ -68,7 +72,7 @@ describe('serve-static-adapter', function () {
       .expect(200, '{"status":"ok"}')
       .expect(function () {
         sinon.assert.calledOnce(open);
-        sinon.assert.calledWith(open, '/root/index.js');
+        sinon.assert.calledWith(open, matchLocalPath('/root/index.js'));
       });
   });
 
@@ -78,6 +82,6 @@ describe('serve-static-adapter', function () {
 
     return request(serveStatic('/root')).get('/index.js')
       .expect(200)
-      .expect('X-SourcePath', '/root/index.js');
+      .expect('X-SourcePath', createAbsolutePathRegExp('/root/index.js'));
   });
 });
