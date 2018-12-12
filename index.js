@@ -1,3 +1,3 @@
-var middleware = require('./lib/middleware');
+var middleware = require('./lib/middleware')
 
-module.exports = middleware;
+module.exports = middleware
