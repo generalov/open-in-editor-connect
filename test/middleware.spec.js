@@ -154,6 +154,19 @@ describe('open-in-editor-connect', function () {
         })
     })
 
+    it('should accept file position in query param', function () {
+      var open = this.fakeOpenSuccess()
+      var middleware = openInEditor('/', { editor: { name: 'vim' } })
+      this.mockFs({ '/index.js': 'hello' })
+
+      return request(middleware).post('/index.js?edit&at=1')
+        .expect(200)
+        .expect(function () {
+          sinon.assert.calledOnce(open)
+          sinon.assert.calledWith(open, matchPath('/index.js:1'), { editor: 'vim' })
+        })
+    })
+
     it('should ignore other query arguments', function () {
       var open = this.fakeOpenSuccess()
       var middleware = openInEditor('/')
