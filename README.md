@@ -71,7 +71,6 @@ Open the `server.js` file in Sublime Editor and put a cursor to line 123.
     var openInEditor = require('open-in-editor-connect');
 
 -   `openInEditor(root, options)`
--   `openInEditor(options)`
 
 Create a new middleware function to handle files from within a given `root` directory.
 
@@ -139,33 +138,14 @@ Use these setting if the editor currently is not supported or if the editor's pa
 
     var connect = require('connect');
     var serveStatic = require('serve-static');
-    var openInEditor = require('open-in-editor-connect', {
-      editor: { name: 'code' }
-    });
+    var openInEditor = require('open-in-editor-connect');
 
     var app = connect();
-    app.use(openInEditor('.'));
+    app.use(openInEditor('.', {
+      editor: { name: 'code' }
+    }));
     app.use(serveStatic('.'));
     app.listen(3000);
-
-### Connect: Wrap the serve-static to handle the same path
-
-    var connect = require('connect');
-    //var serveStatic = require('serve-static');
-    var serveStatic = require('open-in-editor-connect', {
-      editor: { name: 'code' },
-      serveStatic: true
-    });
-
-    var app = connect();
-    app.use(serveStatic('.', { index: ['index.html'] }));
-    app.listen(3000);
-
-### Customize options per directory
-
-    var openInEditor = require('open-in-editor-connect);
-
-    app.use(openInEditor('/', { editor: { name: 'code' } }));
 
 ## License
 
